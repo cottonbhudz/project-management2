@@ -1,4 +1,4 @@
-# Build a Complete Project Management Dashboard
+# Build a Complete Project Management Dashboar
 
 [![Tutorial Video](https://img.youtube.com/vi/KAV8vo7hGAo/0.jpg)](https://www.youtube.com/watch?v=KAV8vo7hGAo)
 
