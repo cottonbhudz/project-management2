@@ -77,7 +77,7 @@ const Sidebar = () => {
           <Image
             src="https://pm-s3-images.s3.us-east-1.amazonaws.com/logo.png"
             alt="Logo"
-            width={40}
+            width={55}
             height={40}
           />
           <div>
