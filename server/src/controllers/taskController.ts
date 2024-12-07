@@ -5,10 +5,25 @@ const prisma = new PrismaClient();
 
 export const getTasks = async (req: Request, res: Response): Promise<void> => {
   const { projectId } = req.query;
+
+  if (!projectId) {
+    res.status(400).json({ message: "projectId query parameter is required." });
+    return;
+  }
+
+  const numericProjectId = Number(projectId);
+
+  if (isNaN(numericProjectId)) {
+    res
+      .status(400)
+      .json({ message: "projectId query parameter must be a valid number." });
+    return;
+  }
+
   try {
     const tasks = await prisma.task.findMany({
       where: {
-        projectId: Number(projectId),
+        projectId: numericProjectId,
       },
       include: {
         author: true,
