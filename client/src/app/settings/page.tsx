@@ -1,17 +1,42 @@
+import React, { useState, useEffect } from "react";
 import Header from "@/components/Header";
-import React from "react";
+import { Auth } from "aws-amplify"; // Assuming AWS Amplify for Cognito authentication
 
 const Settings = () => {
-  const userSettings = {
-    username: "johndoe",
-    email: "john.doe@example.com",
-    teamName: "Development Team",
-    roleName: "Developer",
-  };
+  const [userSettings, setUserSettings] = useState({
+    username: "",
+    email: "",
+    teamName: "",
+    roleName: "",
+  });
 
   const labelStyles = "block text-sm font-medium dark:text-white";
   const textStyles =
     "mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 dark:text-white";
+
+  useEffect(() => {
+    // Fetch user details when the component mounts
+    const fetchUserSettings = async () => {
+      try {
+        const user = await Auth.currentAuthenticatedUser();
+        const { username, attributes } = user;
+
+        // Assuming the attributes contain email, you can adjust this based on your setup
+        const userData = {
+          username,
+          email: attributes.email,
+          teamName: "Development Team", // Replace this with actual team data if available
+          roleName: "Developer", // Replace with actual role data if available
+        };
+
+        setUserSettings(userData);
+      } catch (error) {
+        console.error("Error fetching user details: ", error);
+      }
+    };
+
+    fetchUserSettings();
+  }, []);
 
   return (
     <div className="p-8">
